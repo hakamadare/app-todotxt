@@ -4,16 +4,21 @@ use warnings;
 use strict;
 use Carp;
 
-use version; $VERSION = qv('0.0.3');
+use version; our $VERSION = qv('0.0.1');
 
-# Other recommended modules (uncomment to use):
-#  use IO::Prompt;
-#  use Perl6::Export;
-#  use Perl6::Slurp;
-#  use Perl6::Say;
-
+use Readonly;
 
 # Module implementation here
+
+Readonly our TODOREGEX => '^([xX] ){0,1}(\([A-Z]\) ){0,1}(\d{4}-\d{2}-\d{2} ){0,2}(.*)$';
+
+Readonly our REGEX => {
+                       completed => '^[xX]$',
+                       date      => '^\d{4}-\d{2}-\d{2}$',
+                       priority  => '^\([A-Z]\))$',
+                       context   => '^@\S*[[:alnum:]_]$',
+                       project   => '^\+\S*[[:alnum:]_]$',
+                      };
 
 
 1; # Magic true value required at end of module
