@@ -1,8 +1,16 @@
 package App::TodoTxt;
 
-use warnings;
-use strict;
-use Carp;
+use Moose;
+use Moose::Util::TypeConstraints;
+use MooseX::Types::Moose;
+use MooseX::Types -declare => [
+    qw(
+        Completed
+        Date
+        Context
+        Project
+      ),
+];
 
 use version; our $VERSION = qv('0.0.1');
 
@@ -10,15 +18,15 @@ use Readonly;
 
 # Module implementation here
 
-Readonly our TODOREGEX => '^([xX] ){0,1}(\([A-Z]\) ){0,1}(\d{4}-\d{2}-\d{2} ){0,2}(.*)$';
+Readonly our $TODOREGEX => '^([xX] ){0,1}(\([A-Z]\) ){0,1}(\d{4}-\d{2}-\d{2} ){0,2}(.*)$';
 
-Readonly our REGEX => {
-                       completed => '^[xX]$',
-                       date      => '^\d{4}-\d{2}-\d{2}$',
-                       priority  => '^\([A-Z]\))$',
-                       context   => '^@\S*[[:alnum:]_]$',
-                       project   => '^\+\S*[[:alnum:]_]$',
-                      };
+Readonly our $REGEX => {
+                        completed => '^[xX]$',
+                        date      => '^\d{4}-\d{2}-\d{2}$',
+                        priority  => '^\([A-Z]\))$',
+                        context   => '^@\S*[[:alnum:]_]$',
+                        project   => '^\+\S*[[:alnum:]_]$',
+                       };
 
 
 1; # Magic true value required at end of module
